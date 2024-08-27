@@ -1,3 +1,3 @@
-module github.com/MikhailWahib/Ra
+module Ra
 
 go 1.22.2
