@@ -34,10 +34,10 @@ func TestLetStatements(t *testing.T) {
 			return
 		}
 
-		// val := stmt.(*ast.LetStatement).Value
-		// if !testLiteralExpression(t, val, tt.expectedValue) {
-		// 	return
-		// }
+		val := stmt.(*ast.LetStatement).Value
+		if !testLiteralExpression(t, val, tt.expectedValue) {
+			return
+		}
 	}
 }
 
