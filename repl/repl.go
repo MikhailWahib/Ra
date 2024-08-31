@@ -2,7 +2,7 @@ package repl
 
 import (
 	"Ra/lexer"
-	"Ra/token"
+	"Ra/parser"
 	"bufio"
 	"fmt"
 	"io"
@@ -21,10 +21,25 @@ func Start(in io.Reader, out io.Writer) {
 			return
 		}
 
-		l := lexer.New(scanner.Text())
+		line := scanner.Text()
+		l := lexer.New(line)
+		p := parser.New(l)
+		program := p.ParseProgram()
 
-		for tok := l.NextToken(); tok.Type != token.EOF; tok = l.NextToken() {
-			fmt.Printf("%+v\n", tok)
+		if len(p.Errors()) != 0 {
+			printParserErrors(out, p.Errors())
+			continue
 		}
+
+		io.WriteString(out, program.String())
+		io.WriteString(out, "\n")
+	}
+}
+
+func printParserErrors(out io.Writer, errors []string) {
+	io.WriteString(out, "Woops! We ran into some monkey business here!\n")
+	io.WriteString(out, " parser errors:\n")
+	for _, msg := range errors {
+		io.WriteString(out, "\t"+msg+"\n")
 	}
 }
