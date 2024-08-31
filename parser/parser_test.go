@@ -71,9 +71,9 @@ func TestReturnStatements(t *testing.T) {
 			t.Fatalf("returnStmt.TokenLiteral not 'return', got %q",
 				returnStmt.TokenLiteral())
 		}
-		// if testLiteralExpression(t, returnStmt.ReturnValue, tt.expectedValue) {
-		// 	return
-		// }
+		if testLiteralExpression(t, returnStmt.ReturnValue, tt.expectedValue) {
+			return
+		}
 	}
 }
 
