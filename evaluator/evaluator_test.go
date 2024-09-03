@@ -88,7 +88,7 @@ func TestBangOperator(t *testing.T) {
 func TestIfElseExpressions(t *testing.T) {
 	tests := []struct {
 		input    string
-		expected interface{}
+		expected any
 	}{
 		{"if (true) { 10 }", 10},
 		{"if (false) { 10 }", nil},
