@@ -192,7 +192,7 @@ func (ie *IfExpression) String() string {
 }
 
 type BlockStatement struct {
-	Token      token.Token // the { token
+	Token      token.Token
 	Statements []Statement
 }
 
