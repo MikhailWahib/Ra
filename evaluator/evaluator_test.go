@@ -309,6 +309,9 @@ func TestBuiltinFunctions(t *testing.T) {
 		{`max(1, 2, 3)`, 3},
 		{`max(54, 68685, 88, 7, 4654)`, 68685},
 		{`max(45, "hello")`, "argument to `max` not supported, got STRING"},
+		{`max([5, 56, 87])`, 87},
+		{`max(["hii", 56, 87])`, "argument to `max` not supported, got STRING"},
+		{`max([56, 87], [48, 24])`, "wrong number of arguments. got=2, want=1"},
 	}
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
