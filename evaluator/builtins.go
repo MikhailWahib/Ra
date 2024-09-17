@@ -1,8 +1,19 @@
 package evaluator
 
-import "Ra/object"
+import (
+	"Ra/object"
+	"fmt"
+)
 
 var builtins = map[string]*object.Builtin{
+	"puts": {
+		Fn: func(args ...object.Object) object.Object {
+			for _, arg := range args {
+				fmt.Println(arg.Inspect())
+			}
+			return NULL
+		},
+	},
 	"len": {
 		Fn: func(args ...object.Object) object.Object {
 			if len(args) != 1 {
