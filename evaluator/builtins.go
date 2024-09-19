@@ -2,16 +2,19 @@ package evaluator
 
 import (
 	"Ra/object"
+	"bytes"
 	"fmt"
 )
 
 var builtins = map[string]*object.Builtin{
 	"puts": {
 		Fn: func(args ...object.Object) object.Object {
+			var out bytes.Buffer
 			for _, arg := range args {
-				fmt.Println(arg.Inspect())
+				out.WriteString(arg.Inspect())
 			}
-			return NULL
+			fmt.Println(out.String())
+			return nil
 		},
 	},
 	"len": {
