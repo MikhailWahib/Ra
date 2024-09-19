@@ -11,6 +11,7 @@ import (
 const (
 	_ int = iota
 	LOWEST
+	ASSIGN      // =
 	EQUALS      // ==
 	LESSGREATER // > or <
 	SUM         // +
@@ -37,6 +38,7 @@ type Parser struct {
 }
 
 var precedences = map[token.TokenType]int{
+	token.ASSIGN:   ASSIGN,
 	token.EQ:       EQUALS,
 	token.NOT_EQ:   EQUALS,
 	token.LT:       LESSGREATER,
@@ -81,6 +83,7 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerInfix(token.LT, p.parseInfixExpression)
 	p.registerInfix(token.GT, p.parseInfixExpression)
 	p.registerInfix(token.LBRACKET, p.parseIndexExpression)
+	p.registerInfix(token.ASSIGN, p.parseAssignmentExpression)
 
 	return p
 }
@@ -357,6 +360,26 @@ func (p *Parser) parseIndexExpression(left ast.Expression) ast.Expression {
 
 	if !p.expectPeek(token.RBRACKET) {
 		return nil
+	}
+
+	return exp
+}
+
+func (p *Parser) parseAssignmentExpression(name ast.Expression) ast.Expression {
+	exp := &ast.AssignmentExpression{Token: p.curToken}
+
+	n, ok := name.(*ast.Identifier)
+	if !ok {
+		p.errors = append(p.errors, "invalid assignment target")
+		return nil
+	}
+
+	exp.Name = n
+	p.nextToken()
+	exp.Value = p.parseExpression(ASSIGN)
+
+	if p.peekTokenIs(token.SEMICOLON) {
+		p.nextToken()
 	}
 
 	return exp

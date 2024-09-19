@@ -498,6 +498,20 @@ func TestHashIndexExpressions(t *testing.T) {
 	}
 }
 
+func TestVariableMutability(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected int64
+	}{
+		{"let a = 5; a = 10; a;", 10},
+		{"let a = 5 * 5; a = 10; a;", 10},
+		{"let a = 5; let b = 5; a = a + b; a;", 10},
+	}
+	for _, tt := range tests {
+		testIntegerObject(t, testEval(tt.input), tt.expected)
+	}
+}
+
 func testNullObject(t *testing.T, obj object.Object) bool {
 	if obj != NULL {
 		t.Errorf("object is not NULL. got=%T (%+v)", obj, obj)

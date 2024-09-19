@@ -102,6 +102,21 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 
 		env.Set(node.Name.Value, val)
 
+	case *ast.AssignmentExpression:
+		ident := node.Name
+
+		_, ok := env.Get(ident.Value)
+		if !ok {
+			return newError("identifier not found: " + ident.Value)
+		}
+
+		val := Eval(node.Value, env)
+		if isError(val) {
+			return val
+		}
+
+		env.Set(ident.Value, val)
+
 	case *ast.FunctionLiteral:
 		params := node.Parameters
 		body := node.Body

@@ -108,6 +108,16 @@ func (es *ExpressionStatement) String() string {
 }
 func (es *ExpressionStatement) TokenLiteral() string { return es.Token.Literal }
 
+type AssignmentExpression struct {
+	Token token.Token
+	Name  *Identifier
+	Value Expression
+}
+
+func (ae *AssignmentExpression) expressionNode()      {}
+func (ae *AssignmentExpression) TokenLiteral() string { return ae.Token.Literal }
+func (ae *AssignmentExpression) String() string       { return "" }
+
 type IntegerLiteral struct {
 	Token token.Token
 	Value int64

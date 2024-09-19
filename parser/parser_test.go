@@ -816,6 +816,54 @@ func TestParsingHashLiteralsWithExpressions(t *testing.T) {
 	}
 }
 
+func TestAssignmentExpression(t *testing.T) {
+	input := "a = 1;"
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParseProgram()
+	checkParserErrors(t, p)
+
+	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	assign, ok := stmt.Expression.(*ast.AssignmentExpression)
+	if !ok {
+		t.Fatalf("exp not *ast.AssignmentExpression. got=%T", stmt.Expression)
+	}
+	if assign.Name.Value != "a" {
+		t.Errorf("assign.Name.Value not %s. got=%s", "a", assign.Name.Value)
+	}
+	if assign.Name.TokenLiteral() != "a" {
+		t.Errorf("assign.Name.TokenLiteral() not %s. got=%s", "a", assign.Name.TokenLiteral())
+	}
+
+	if !testLiteralExpression(t, assign.Value, 1) {
+		return
+	}
+}
+
+func TestAssignmentExpressionWithInfixExpression(t *testing.T) {
+	input := "a = 1 + 1;"
+	l := lexer.New(input)
+	p := New(l)
+	program := p.ParseProgram()
+	checkParserErrors(t, p)
+
+	stmt := program.Statements[0].(*ast.ExpressionStatement)
+	assign, ok := stmt.Expression.(*ast.AssignmentExpression)
+	if !ok {
+		t.Fatalf("exp not *ast.AssignmentExpression. got=%T", stmt.Expression)
+	}
+	if assign.Name.Value != "a" {
+		t.Errorf("assign.Name.Value not %s. got=%s", "a", assign.Name.Value)
+	}
+	if assign.Name.TokenLiteral() != "a" {
+		t.Errorf("assign.Name.TokenLiteral() not %s. got=%s", "a", assign.Name.TokenLiteral())
+	}
+
+	if !testInfixExpression(t, assign.Value, 1, "+", 1) {
+		return
+	}
+}
+
 func testInfixExpression(t *testing.T, exp ast.Expression, left any,
 	operator string, right any) bool {
 
