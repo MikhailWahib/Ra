@@ -35,6 +35,11 @@ func printParserErrors(out io.Writer, errors []string) {
 func executeFile(args []string) {
 	path := args[1]
 
+	// check if the file end with .ra
+	if path[len(path)-3:] != ".ra" {
+		panic("File must end with .ra")
+	}
+
 	file, err := os.ReadFile(path)
 	if err != nil {
 		panic(err)
