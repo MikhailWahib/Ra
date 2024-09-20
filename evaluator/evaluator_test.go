@@ -512,6 +512,18 @@ func TestVariableMutability(t *testing.T) {
 	}
 }
 
+func TestWhileLoop(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected int64
+	}{
+		{"let a = 0; while (a < 5) { a = a + 1; } a;", 5},
+	}
+	for _, tt := range tests {
+		testIntegerObject(t, testEval(tt.input), tt.expected)
+	}
+}
+
 func testNullObject(t *testing.T, obj object.Object) bool {
 	if obj != NULL {
 		t.Errorf("object is not NULL. got=%T (%+v)", obj, obj)

@@ -26,6 +26,9 @@ func TestNextToken(t *testing.T) {
 	"foo bar"
 	[1, 2];
 	{"foo": "bar"}
+	while (5 < 10) {
+		return true;
+	}
 	`
 	tests := []struct {
 		expectedType    token.TokenType
@@ -117,7 +120,17 @@ func TestNextToken(t *testing.T) {
 		{token.COLON, ":"},
 		{token.STRING, "bar"},
 		{token.RBRACE, "}"},
-		{token.EOF, ""},
+		{token.WHILE, "while"},
+		{token.LPAREN, "("},
+		{token.INT, "5"},
+		{token.LT, "<"},
+		{token.INT, "10"},
+		{token.RPAREN, ")"},
+		{token.LBRACE, "{"},
+		{token.RETURN, "return"},
+		{token.TRUE, "true"},
+		{token.SEMICOLON, ";"},
+		{token.RBRACE, "}"},
 		{token.EOF, ""},
 	}
 
