@@ -98,6 +98,10 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return &object.ReturnValue{Value: val}
 
 	case *ast.LetStatement:
+		_, ok := env.Get(node.Name.Value)
+		if ok {
+			return newError("identifier '%s' is already declared", node.Name.Value)
+		}
 		val := Eval(node.Value, env)
 		if isError(val) {
 			return val

@@ -186,6 +186,10 @@ func TestErrorHandling(t *testing.T) {
 			`{"name": "ANYY"}[fn(x) { x }];`,
 			"unusable as hash key: FUNCTION",
 		},
+		{
+			"let a = 0; let a = 5;",
+			"identifier 'a' is already declared",
+		},
 	}
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
