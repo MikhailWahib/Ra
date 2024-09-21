@@ -338,19 +338,19 @@ func (hl *HashLiteral) String() string {
 	return out.String()
 }
 
-type WhileExpression struct {
+type WhileStatement struct {
 	Token     token.Token // The 'while' token
 	Condition Expression
 	Body      *BlockStatement
 }
 
-func (we *WhileExpression) expressionNode()      {}
-func (we *WhileExpression) TokenLiteral() string { return we.Token.Literal }
-func (we *WhileExpression) String() string {
+func (ws *WhileStatement) statementNode()       {}
+func (ws *WhileStatement) TokenLiteral() string { return ws.Token.Literal }
+func (ws *WhileStatement) String() string {
 	var out bytes.Buffer
 	out.WriteString("while")
-	out.WriteString(we.Condition.String())
+	out.WriteString(ws.Condition.String())
 	out.WriteString(" ")
-	out.WriteString(we.Body.String())
+	out.WriteString(ws.Body.String())
 	return out.String()
 }

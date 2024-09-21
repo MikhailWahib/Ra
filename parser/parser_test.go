@@ -864,36 +864,29 @@ func TestAssignmentExpressionWithInfixExpression(t *testing.T) {
 	}
 }
 
-func TestWhileExpression(t *testing.T) {
+func TestWhileStatement(t *testing.T) {
 	input := "while (5 < 10) { return true; }"
 	l := lexer.New(input)
 	p := New(l)
 	program := p.ParseProgram()
 	checkParserErrors(t, p)
 
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
-
-	exp, ok := stmt.Expression.(*ast.WhileExpression)
-	if !ok {
-		t.Fatalf("exp not *ast.WhileExpression. got=%T", stmt.Expression)
-	}
-
-	if !testInfixExpression(t, exp.Condition, 5, "<", 10) {
+	stmt := program.Statements[0].(*ast.WhileStatement)
+	if !testInfixExpression(t, stmt.Condition, 5, "<", 10) {
 		return
 	}
 
-	if len(exp.Body.Statements) != 1 {
-		t.Fatalf("while body is not 1 statements. got=%d\n",
-			len(exp.Body.Statements))
+	if len(stmt.Body.Statements) != 1 {
+		t.Fatalf("while.Body.Statements has not 1 statements. got=%d\n",
+			len(stmt.Body.Statements))
 	}
 
-	wh, ok := exp.Body.Statements[0].(*ast.ReturnStatement)
+	whStmt, ok := stmt.Body.Statements[0].(*ast.ReturnStatement)
 	if !ok {
-		t.Fatalf("while body stmt is not ast.ReturnStatement. got=%T",
-			exp.Body.Statements[0])
+		t.Fatalf("while.Body.Statements[0] is not ast.ReturnStatement. got=%T",
+			stmt.Body.Statements[0])
 	}
-
-	if !testLiteralExpression(t, wh.ReturnValue, true) {
+	if !testLiteralExpression(t, whStmt.ReturnValue, true) {
 		return
 	}
 }

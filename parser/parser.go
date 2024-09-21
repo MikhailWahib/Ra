@@ -72,7 +72,6 @@ func New(l *lexer.Lexer) *Parser {
 	p.registerPrefix(token.STRING, p.parseStringLiteral)
 	p.registerPrefix(token.LBRACKET, p.parseArrayLiteral)
 	p.registerPrefix(token.LBRACE, p.parseHashLiteral)
-	p.registerPrefix(token.WHILE, p.parseWhileExpression)
 
 	p.registerInfix(token.LPAREN, p.parseCallExpression)
 	p.registerInfix(token.PLUS, p.parseInfixExpression)
@@ -110,6 +109,8 @@ func (p *Parser) parseStatement() ast.Statement {
 		return p.parseLetStatement()
 	case token.RETURN:
 		return p.parseReturnStatement()
+	case token.WHILE:
+		return p.parseWhileStatement()
 	default:
 		return p.parseExpressionStatement()
 	}
@@ -429,8 +430,8 @@ func (p *Parser) parseHashLiteral() ast.Expression {
 
 }
 
-func (p *Parser) parseWhileExpression() ast.Expression {
-	exp := &ast.WhileExpression{Token: p.curToken}
+func (p *Parser) parseWhileStatement() ast.Statement {
+	exp := &ast.WhileStatement{Token: p.curToken}
 
 	if !p.expectPeek(token.LPAREN) {
 		return nil

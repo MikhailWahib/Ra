@@ -517,15 +517,14 @@ func TestVariableMutability(t *testing.T) {
 }
 
 func TestWhileLoop(t *testing.T) {
-	tests := []struct {
-		input    string
-		expected int64
-	}{
-		{"let a = 0; while (a < 5) { a = a + 1; } a;", 5},
-	}
-	for _, tt := range tests {
-		testIntegerObject(t, testEval(tt.input), tt.expected)
-	}
+	test := `
+		let a = 0;
+		while (a < 10) {
+			a = a + 1;
+		}
+		a
+	`
+	testIntegerObject(t, testEval(test), 10)
 }
 
 func testNullObject(t *testing.T, obj object.Object) bool {
