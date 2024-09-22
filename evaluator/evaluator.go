@@ -33,7 +33,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		return evalIfExpression(node, env)
 
 	case *ast.WhileStatement:
-		evalWhileStatement(node, env)
+		return evalWhileStatement(node, env)
 
 	case *ast.Identifier:
 		return evalIdentifier(node, env)
