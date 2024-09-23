@@ -32,9 +32,6 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.IfExpression:
 		return evalIfExpression(node, env)
 
-	case *ast.WhileStatement:
-		return evalWhileStatement(node, env)
-
 	case *ast.Identifier:
 		return evalIdentifier(node, env)
 
@@ -142,6 +139,22 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		}
 
 		return applyFunction(fn, args)
+
+	case *ast.WhileStatement:
+		for {
+			condition := Eval(node.Condition, env)
+			if isError(condition) {
+				return condition
+			}
+			if !isTruthy(condition) {
+				break
+			}
+
+			result := Eval(node.Body, env)
+			if isError(result) {
+				return result
+			}
+		}
 	}
 
 	return nil
@@ -274,23 +287,6 @@ func evalIfExpression(ie *ast.IfExpression, env *object.Environment) object.Obje
 	} else {
 		return NULL
 	}
-}
-func evalWhileStatement(we *ast.WhileStatement, env *object.Environment) object.Object {
-	for {
-		condition := Eval(we.Condition, env)
-		if isError(condition) {
-			return condition
-		}
-		if !isTruthy(condition) {
-			break
-		}
-
-		result := Eval(we.Body, env)
-		if isError(result) {
-			return result
-		}
-	}
-	return NULL
 }
 
 func evalIdentifier(
