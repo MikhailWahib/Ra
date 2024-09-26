@@ -1,10 +1,12 @@
 package parser
 
 import (
-	"Ra/ast"
-	"Ra/lexer"
 	"fmt"
 	"testing"
+
+	"github.com/MikhailWahib/Ra/ast"
+
+	"github.com/MikhailWahib/Ra/lexer"
 )
 
 func TestLetStatements(t *testing.T) {

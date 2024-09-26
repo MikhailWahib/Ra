@@ -1,11 +1,12 @@
 package parser
 
 import (
-	"Ra/ast"
-	"Ra/lexer"
-	"Ra/token"
 	"fmt"
 	"strconv"
+
+	"github.com/MikhailWahib/Ra/ast"
+	"github.com/MikhailWahib/Ra/lexer"
+	"github.com/MikhailWahib/Ra/token"
 )
 
 const (

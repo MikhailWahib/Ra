@@ -1,9 +1,10 @@
 package evaluator
 
 import (
-	"Ra/ast"
-	"Ra/object"
 	"fmt"
+
+	"github.com/MikhailWahib/Ra/ast"
+	"github.com/MikhailWahib/Ra/object"
 )
 
 var (

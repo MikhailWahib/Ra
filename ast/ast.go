@@ -1,9 +1,10 @@
 package ast
 
 import (
-	"Ra/token"
 	"bytes"
 	"strings"
+
+	"github.com/MikhailWahib/Ra/token"
 )
 
 type Node interface {

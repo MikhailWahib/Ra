@@ -1,15 +1,16 @@
 package main
 
 import (
-	"Ra/evaluator"
-	"Ra/lexer"
-	"Ra/object"
-	"Ra/parser"
-	"Ra/repl"
 	"fmt"
 	"io"
 	"os"
 	"os/user"
+
+	"github.com/MikhailWahib/Ra/evaluator"
+	"github.com/MikhailWahib/Ra/lexer"
+	"github.com/MikhailWahib/Ra/object"
+	"github.com/MikhailWahib/Ra/parser"
+	"github.com/MikhailWahib/Ra/repl"
 )
 
 func startRepl() {

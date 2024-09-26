@@ -1,13 +1,14 @@
 package repl
 
 import (
-	"Ra/evaluator"
-	"Ra/lexer"
-	"Ra/object"
-	"Ra/parser"
 	"bufio"
 	"fmt"
 	"io"
+
+	"github.com/MikhailWahib/Ra/evaluator"
+	"github.com/MikhailWahib/Ra/lexer"
+	"github.com/MikhailWahib/Ra/object"
+	"github.com/MikhailWahib/Ra/parser"
 )
 
 const PROMPT = ">> "

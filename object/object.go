@@ -1,11 +1,12 @@
 package object
 
 import (
-	"Ra/ast"
 	"bytes"
 	"fmt"
 	"hash/fnv"
 	"strings"
+
+	"github.com/MikhailWahib/Ra/ast"
 )
 
 type ObjectType string

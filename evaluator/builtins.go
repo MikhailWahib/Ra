@@ -1,9 +1,10 @@
 package evaluator
 
 import (
-	"Ra/object"
 	"bytes"
 	"fmt"
+
+	"github.com/MikhailWahib/Ra/object"
 )
 
 var builtins = map[string]*object.Builtin{

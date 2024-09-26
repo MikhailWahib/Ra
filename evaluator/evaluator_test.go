@@ -1,10 +1,11 @@
 package evaluator
 
 import (
-	"Ra/lexer"
-	"Ra/object"
-	"Ra/parser"
 	"testing"
+
+	"github.com/MikhailWahib/Ra/lexer"
+	"github.com/MikhailWahib/Ra/object"
+	"github.com/MikhailWahib/Ra/parser"
 )
 
 func TestEvalIntegerExpression(t *testing.T) {
