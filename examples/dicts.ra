@@ -1,0 +1,7 @@
+let person = {"name": "Alice", "age": 30};
+
+let pName = person["name"];
+let pAge = person["age"];
+
+puts(pName);
+puts(pAge);
