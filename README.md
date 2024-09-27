@@ -3,12 +3,11 @@
 Ra is a simple interpreted programming language, built in Go. It features its own lexer, parser, and evaluator, and is designed for learning and experimenting with language development (not for production use).
 
 ```js
-let a = 5;
-let b = 10;
-
-if (a < b) {
-    puts("b is greater than a");
+let hello = fn(name) {
+    puts("Hello, " + name + "!");
 }
+
+hello("World");
 ```
 
 ## Getting Started
@@ -31,5 +30,22 @@ go run ra.go
 
 ### Examples
 ```bash
-go run ra.go examples/hello.ra
+go run ra.go examples/<example-name>.ra
+```
+
+### Build
+```bash
+go build -o bin/ra
+```
+
+### Testing
+
+To run all tests:
+```bash
+go test ./...
+```
+
+To run a single test:
+```bash
+go test ./<package-dir-name>
 ```
