@@ -26,6 +26,7 @@ func TestNextToken(t *testing.T) {
 	"foo bar"
 	[1, 2];
 	{"foo": "bar"}
+	# This Should be ignored.
 	while (5 < 10) {
 		return true;
 	}

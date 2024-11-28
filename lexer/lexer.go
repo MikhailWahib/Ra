@@ -70,6 +70,12 @@ func (l *Lexer) NextToken() token.Token {
 		} else {
 			tok = newToken(token.ASSIGN, l.ch)
 		}
+	case '#':
+		l.skipWhitespace()
+		for l.ch != '\n' && l.ch != 0 {
+			l.readChar()
+		}
+		return l.NextToken()
 	case 0:
 		tok.Literal = ""
 		tok.Type = token.EOF
