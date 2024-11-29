@@ -117,7 +117,18 @@ type AssignmentExpression struct {
 
 func (ae *AssignmentExpression) expressionNode()      {}
 func (ae *AssignmentExpression) TokenLiteral() string { return ae.Token.Literal }
-func (ae *AssignmentExpression) String() string       { return "" }
+func (ae *AssignmentExpression) String() string {
+	var out bytes.Buffer
+
+	out.WriteString(ae.Name.String())
+	out.WriteString(" = ")
+	if ae.Value != nil {
+		out.WriteString(ae.Value.String())
+	}
+	out.WriteString(";")
+
+	return out.String()
+}
 
 type IntegerLiteral struct {
 	Token token.Token

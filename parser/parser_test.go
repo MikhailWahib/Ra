@@ -819,26 +819,45 @@ func TestParsingHashLiteralsWithExpressions(t *testing.T) {
 }
 
 func TestAssignmentExpression(t *testing.T) {
-	input := "a = 1;"
-	l := lexer.New(input)
-	p := New(l)
-	program := p.ParseProgram()
-	checkParserErrors(t, p)
-
-	stmt := program.Statements[0].(*ast.ExpressionStatement)
-	assign, ok := stmt.Expression.(*ast.AssignmentExpression)
-	if !ok {
-		t.Fatalf("exp not *ast.AssignmentExpression. got=%T", stmt.Expression)
-	}
-	if assign.Name.Value != "a" {
-		t.Errorf("assign.Name.Value not %s. got=%s", "a", assign.Name.Value)
-	}
-	if assign.Name.TokenLiteral() != "a" {
-		t.Errorf("assign.Name.TokenLiteral() not %s. got=%s", "a", assign.Name.TokenLiteral())
+	input := []struct {
+		input string
+		ident string
+		op    string
+		value any
+	}{
+		{"a = 1;", "a", "=", 1},
+		{"b = 2;", "b", "=", 2},
+		{"a += 1;", "a", "+=", 1},
+		{"b -= 2;", "b", "-=", 2},
+		{"a *= 3;", "a", "*=", 3},
+		{"b /= 4;", "b", "/=", 4},
 	}
 
-	if !testLiteralExpression(t, assign.Value, 1) {
-		return
+	for _, tt := range input {
+		l := lexer.New(tt.input)
+		p := New(l)
+		program := p.ParseProgram()
+		checkParserErrors(t, p)
+
+		stmt := program.Statements[0].(*ast.ExpressionStatement)
+		assign, ok := stmt.Expression.(*ast.AssignmentExpression)
+		if !ok {
+			t.Fatalf("exp not *ast.AssignmentExpression. got=%T", stmt.Expression)
+		}
+		if assign.Name.Value != tt.ident {
+			t.Errorf("assign.Name.Value not %s. got=%s", tt.ident, assign.Name.Value)
+		}
+		if assign.Name.TokenLiteral() != tt.ident {
+			t.Errorf("assign.Name.TokenLiteral() not %s. got=%s", tt.ident, assign.Name.TokenLiteral())
+		}
+
+		if assign.TokenLiteral() != tt.op {
+			t.Errorf("assign.Operator not %s. got=%s", tt.op, assign.TokenLiteral())
+		}
+
+		if !testLiteralExpression(t, assign.Value, tt.value) {
+			return
+		}
 	}
 }
 

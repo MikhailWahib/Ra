@@ -110,7 +110,7 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 	case *ast.AssignmentExpression:
 		ident := node.Name
 
-		_, ok := env.Get(ident.Value)
+		curVal, ok := env.Get(ident.Value)
 		if !ok {
 			return newError("identifier not found: " + ident.Value)
 		}
@@ -118,6 +118,14 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		val := Eval(node.Value, env)
 		if isError(val) {
 			return val
+		}
+
+		if node.Token.Literal != "=" {
+			if curVal.Type() != val.Type() {
+				return newError("type mismatch: %s %s %s", curVal.Type(), node.Token.Literal, val.Type())
+			}
+
+			val = evalInfixExpression(string(node.Token.Literal[0]), curVal, val)
 		}
 
 		env.Set(ident.Value, val)

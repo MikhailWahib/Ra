@@ -191,6 +191,10 @@ func TestErrorHandling(t *testing.T) {
 			"let a = 0; let a = 5;",
 			"identifier 'a' is already declared",
 		},
+		// {
+		// 	"let x = 5; x += 'Hello'",
+		// 	"unknown operator: STRING + INTEGER",
+		// },
 	}
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
@@ -217,6 +221,7 @@ func TestLetStatements(t *testing.T) {
 		{"let a = 5 * 5; a;", 25},
 		{"let a = 5; let b = a; b;", 5},
 		{"let a = 5; let b = a; let c = a + b + 5; c;", 15},
+		// {"let a = 5; a = 10; a;", 10},
 	}
 
 	for _, tt := range tests {
@@ -511,6 +516,21 @@ func TestVariableMutability(t *testing.T) {
 		{"let a = 5; a = 10; a;", 10},
 		{"let a = 5 * 5; a = 10; a;", 10},
 		{"let a = 5; let b = 5; a = a + b; a;", 10},
+	}
+	for _, tt := range tests {
+		testIntegerObject(t, testEval(tt.input), tt.expected)
+	}
+}
+
+func TestCompoundAssignment(t *testing.T) {
+	tests := []struct {
+		input    string
+		expected int64
+	}{
+		{"let a = 5; a += 5; a;", 10},
+		{"let a = 5; a -= 5; a;", 0},
+		{"let a = 5; a *= 5; a;", 25},
+		{"let a = 5; a /= 5; a;", 1},
 	}
 	for _, tt := range tests {
 		testIntegerObject(t, testEval(tt.input), tt.expected)
