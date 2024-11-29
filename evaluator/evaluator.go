@@ -121,11 +121,10 @@ func Eval(node ast.Node, env *object.Environment) object.Object {
 		}
 
 		if node.Token.Literal != "=" {
-			if curVal.Type() != val.Type() {
-				return newError("type mismatch: %s %s %s", curVal.Type(), node.Token.Literal, val.Type())
-			}
-
 			val = evalInfixExpression(string(node.Token.Literal[0]), curVal, val)
+			if isError(val) {
+				return val
+			}
 		}
 
 		env.Set(ident.Value, val)

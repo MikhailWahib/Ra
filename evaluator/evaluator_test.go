@@ -191,10 +191,10 @@ func TestErrorHandling(t *testing.T) {
 			"let a = 0; let a = 5;",
 			"identifier 'a' is already declared",
 		},
-		// {
-		// 	"let x = 5; x += 'Hello'",
-		// 	"unknown operator: STRING + INTEGER",
-		// },
+		{
+			`let x = 5; x += "Hello"`,
+			"type mismatch: INTEGER + STRING",
+		},
 	}
 	for _, tt := range tests {
 		evaluated := testEval(tt.input)
@@ -221,7 +221,7 @@ func TestLetStatements(t *testing.T) {
 		{"let a = 5 * 5; a;", 25},
 		{"let a = 5; let b = a; b;", 5},
 		{"let a = 5; let b = a; let c = a + b + 5; c;", 15},
-		// {"let a = 5; a = 10; a;", 10},
+		{"let a = 5; a = 10; a;", 10},
 	}
 
 	for _, tt := range tests {
