@@ -2,6 +2,11 @@ package lexer
 
 import "github.com/MikhailWahib/Ra/token"
 
+const (
+	NUL     = 0
+	NEWLINE = '\n'
+)
+
 type Lexer struct {
 	input        string
 	position     int
@@ -21,10 +26,7 @@ func (l *Lexer) NextToken() token.Token {
 	l.skipWhitespace()
 
 	switch l.ch {
-	case '<':
-		tok = newToken(token.LT, l.ch)
-	case '>':
-		tok = newToken(token.GT, l.ch)
+	// Brackets and braces
 	case '(':
 		tok = newToken(token.LPAREN, l.ch)
 	case ')':
@@ -37,72 +39,46 @@ func (l *Lexer) NextToken() token.Token {
 		tok = newToken(token.LBRACKET, l.ch)
 	case ']':
 		tok = newToken(token.RBRACKET, l.ch)
+
+	// Comparison operators
+	case '<':
+		tok = newToken(token.LT, l.ch)
+	case '>':
+		tok = newToken(token.GT, l.ch)
+	case '=':
+		tok = l.makeCompoundToken('=', token.ASSIGN, token.EQ)
+	case '!':
+		tok = l.makeCompoundToken('=', token.BANG, token.NOT_EQ)
+
+	// Arithmetic operators
+	case '+':
+		tok = l.makeCompoundToken('=', token.PLUS, token.PLUS_ASSIGN)
+	case '-':
+		tok = l.makeCompoundToken('=', token.MINUS, token.MINUS_ASSIGN)
+	case '*':
+		tok = l.makeCompoundToken('=', token.ASTERISK, token.ASTERISK_ASSIGN)
+	case '/':
+		tok = l.makeCompoundToken('=', token.SLASH, token.SLASH_ASSIGN)
+
+	// Delimiters
 	case ',':
 		tok = newToken(token.COMMA, l.ch)
 	case ':':
 		tok = newToken(token.COLON, l.ch)
 	case ';':
 		tok = newToken(token.SEMICOLON, l.ch)
+
+	// Special cases
 	case '"':
 		tok.Type = token.STRING
 		tok.Literal = l.readString()
-	case '+':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			tok = token.Token{Type: token.PLUS_ASSIGN, Literal: string(ch) + string(l.ch)}
-		} else {
-			tok = newToken(token.PLUS, l.ch)
-		}
-	case '-':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			tok = token.Token{Type: token.MINUS_ASSIGN, Literal: string(ch) + string(l.ch)}
-		} else {
-			tok = newToken(token.MINUS, l.ch)
-		}
-	case '*':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			tok = token.Token{Type: token.ASTERISK_ASSIGN, Literal: string(ch) + string(l.ch)}
-		} else {
-			tok = newToken(token.ASTERISK, l.ch)
-		}
-	case '/':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			tok = token.Token{Type: token.SLASH_ASSIGN, Literal: string(ch) + string(l.ch)}
-		} else {
-			tok = newToken(token.SLASH, l.ch)
-		}
-	case '!':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			tok = token.Token{Type: token.NOT_EQ, Literal: string(ch) + string(l.ch)}
-		} else {
-			tok = newToken(token.BANG, l.ch)
-		}
-	case '=':
-		if l.peekChar() == '=' {
-			ch := l.ch
-			l.readChar()
-			tok = token.Token{Type: token.EQ, Literal: string(ch) + string(l.ch)}
-		} else {
-			tok = newToken(token.ASSIGN, l.ch)
-		}
 	case '#':
-		l.skipWhitespace()
-		for l.ch != '\n' && l.ch != 0 {
-			l.readChar()
-		}
+		l.skipComment()
 		return l.NextToken()
-	case 0:
+	case NUL:
 		tok.Literal = ""
 		tok.Type = token.EOF
+
 	default:
 		if isLetter(l.ch) {
 			tok.Literal = l.readIdentifier()
@@ -119,6 +95,22 @@ func (l *Lexer) NextToken() token.Token {
 
 	l.readChar()
 	return tok
+}
+
+func (l *Lexer) makeCompoundToken(nextChar byte, singleType, compoundType token.TokenType) token.Token {
+	if l.peekChar() == nextChar {
+		ch := l.ch
+		l.readChar()
+		return token.Token{Type: compoundType, Literal: string(ch) + string(l.ch)}
+	}
+	return newToken(singleType, l.ch)
+}
+
+func (l *Lexer) skipComment() {
+	l.skipWhitespace()
+	for l.ch != NEWLINE && l.ch != NUL {
+		l.readChar()
+	}
 }
 
 func (l *Lexer) readChar() {
