@@ -49,7 +49,7 @@ const config: Config = {
       title: 'Ra',
       logo: {
         alt: 'Ra Logo',
-        src: 'img/ankh-logo.svg',
+        src: 'img/Ankh.png',
       },
       style: 'dark', // Use 'dark' or 'light' to match the theme
       items: [
