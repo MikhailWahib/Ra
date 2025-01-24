@@ -5,7 +5,7 @@ import type * as Preset from '@docusaurus/preset-classic';
 const config: Config = {
   title: 'Ra Programming Language 𓋹',
   tagline: 'A simple interpreted language built in Go',
-  favicon: 'img/favicon.ico',
+  favicon: 'img/Ankh.png',
 
   url: 'https://mikhailwahib.github.io', // Replace with your GitHub Pages URL
   baseUrl: '/Ra/', // Replace with your repository name
