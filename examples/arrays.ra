@@ -1,7 +1,0 @@
-let arr = [1, 2, 3, 4];
-puts(arr[0]);
-
-push(arr, 5);
-
-puts(arr);
-puts(len(arr));

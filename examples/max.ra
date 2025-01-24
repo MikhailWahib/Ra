@@ -1,5 +1,0 @@
-let maxInt = max(10, 20, 5);
-let maxArr = max([10, 20, 5]);
-
-puts(maxInt);
-puts(maxArr);

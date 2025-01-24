@@ -1,9 +1,0 @@
-let x = 0
-# This comment should be ignored.
-# x = 1
-
-puts(x) # Should print 0
-
-x = 5
-
-puts(x) # Should print 5
