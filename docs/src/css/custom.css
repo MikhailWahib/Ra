@@ -1,0 +1,45 @@
+:root {
+  --ifm-color-primary: #d4af37;
+  /* Gold */
+  --ifm-color-primary-dark: #c2a034;
+  /* Darker gold */
+  --ifm-color-primary-darker: #b08e31;
+  /* Even darker gold */
+  --ifm-color-primary-darkest: #9e7c2e;
+  /* Darkest gold */
+  --ifm-color-primary-light: #e6c25a;
+  /* Lighter gold */
+  --ifm-color-primary-lighter: #f8d67d;
+  /* Even lighter gold */
+  --ifm-color-primary-lightest: #ffeba0;
+  /* Lightest gold */
+
+  --ifm-color-secondary: #00a0b0;
+  /* Turquoise */
+  --ifm-color-secondary-dark: #008c9a;
+  --ifm-color-secondary-darker: #007884;
+  --ifm-color-secondary-darkest: #00646e;
+  --ifm-color-secondary-light: #00b4c6;
+  --ifm-color-secondary-lighter: #00c8dc;
+  --ifm-color-secondary-lightest: #00dcf2;
+
+  --ifm-color-info: #0077b6;
+  /* Deep blue */
+  --ifm-color-success: #4caf50;
+  /* Green */
+  --ifm-color-warning: #ff9800;
+  /* Orange */
+  --ifm-color-danger: #f44336;
+  /* Red */
+
+  --ifm-background-color: #f4e9d8;
+  /* Sand background */
+  --ifm-hero-background-color: var(--ifm-color-primary-darkest);
+  /* Dark gold for hero */
+  --ifm-footer-background-color: #1a1a1a;
+  /* Dark background for footer */
+  --ifm-navbar-background-color: #1a1a1a;
+  /* Dark background for navbar */
+  --ifm-code-background: #f0e5d3;
+  /* Light sand for code blocks */
+}

@@ -1,0 +1,124 @@
+.heroBanner {
+  padding: 4rem 0;
+  text-align: center;
+  background-color: var(--ifm-color-primary-darkest);
+  /* Dark gold */
+  color: white;
+  /* White text for contrast */
+}
+
+.hero__title {
+  font-size: 3rem;
+  margin-bottom: 1rem;
+  color: white;
+  /* Ensure title is visible */
+}
+
+.hero__subtitle {
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+  color: white;
+  /* Ensure subtitle is visible */
+}
+
+.buttons {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.button {
+  font-size: 1.2rem;
+  padding: 0.75rem 1.5rem;
+  border-radius: 4px;
+  transition: background-color 0.3s ease;
+}
+
+.button--primary {
+  background-color: var(--ifm-color-primary);
+  /* Gold */
+  color: white;
+}
+
+.button--primary:hover {
+  background-color: var(--ifm-color-primary-light);
+  /* Lighter gold */
+}
+
+.button--secondary {
+  background-color: var(--ifm-color-secondary);
+  /* Turquoise */
+  color: white;
+}
+
+.button--secondary:hover {
+  background-color: var(--ifm-color-secondary-light);
+  /* Lighter turquoise */
+}
+
+.button--outline {
+  background-color: transparent;
+  border: 2px solid var(--ifm-color-primary);
+  /* Gold */
+  color: var(--ifm-color-primary);
+  /* Gold text */
+}
+
+.button--outline:hover {
+  background-color: var(--ifm-color-primary);
+  /* Gold background */
+  color: white;
+  /* White text on hover */
+}
+
+.mainContent {
+  padding: 4rem 0;
+  background-color: var(--ifm-background-color);
+  /* Sand background */
+}
+
+.codeExample {
+  margin-bottom: 4rem;
+}
+
+.codeExample pre {
+  background-color: var(--ifm-code-background);
+  /* Light sand for code blocks */
+  padding: 1rem;
+  border-radius: 4px;
+  overflow-x: auto;
+}
+
+.features {
+  margin-bottom: 4rem;
+}
+
+.features h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
+
+.features ul {
+  list-style-type: none;
+  padding: 0;
+}
+
+.features li {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+.cta {
+  text-align: center;
+  background-color: var(--ifm-color-primary-darkest);
+  /* Dark gold */
+  color: white;
+  padding: 2rem;
+  border-radius: 8px;
+  margin-top: 2rem;
+}
+
+.cta h2 {
+  font-size: 2rem;
+  margin-bottom: 1rem;
+}
