@@ -2,7 +2,7 @@
 
 Ra is a simple interpreted programming language, built in Go. It features its own lexer, parser, and evaluator, and is designed for learning and experimenting with language development (not for production use).
 
-```ra
+```js
 let hello = fn(name) {
     puts("Hello, " + name + "!");
 }

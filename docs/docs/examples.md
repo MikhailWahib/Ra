@@ -3,7 +3,7 @@
 Here are some examples to help you get started with Ra.
 
 ## Arithmetic Operations
-```ra
+```js
 let x = 10;
 let y = 5;
 let sum = x + y;
@@ -14,7 +14,7 @@ puts(product);  # Prints 50
 ```
 
 ## Compound Assignment
-```ra
+```js
 x += 5;  # Equivalent to x = x + 5
 y *= 2;  # Equivalent to y = y * 2
 

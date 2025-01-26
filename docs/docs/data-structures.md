@@ -4,7 +4,7 @@ Ra supports basic data structures like arrays and dictionaries.
 
 ## Arrays
 Arrays are ordered collections of elements:
-```ra
+```js
 let arr = [1, 2, 3, 4];
 puts(arr[0]);  # Access the first element
 
@@ -15,7 +15,7 @@ puts(len(arr));  # Print the length of the array
 
 ## Dictionaries
 Dictionaries store key-value pairs:
-```ra
+```js
 let person = {"name": "Alice", "age": 30};
 puts(person["name"]);  # Access value by key
 ```

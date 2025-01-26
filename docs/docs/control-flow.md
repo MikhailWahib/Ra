@@ -4,7 +4,7 @@ Ra provides basic control flow constructs like conditionals and loops.
 
 ## Conditionals
 Use `if-else` for conditional logic:
-```ra
+```js
 let a = 20;
 let b = 10;
 
@@ -17,7 +17,7 @@ if (a > b) {
 
 ## Loops
 Use `while` for looping:
-```ra
+```js
 let count = 0;
 
 while (count < 5) {
